@@ -7,7 +7,7 @@ int main() {
 
 	pid = fork();
 	if(pid < 0){
-		fprintf(stderr, "Fork failed.");
+		fprintf(stderr, "Fork failed.\n");
 		return 1;
 	}
 	
@@ -16,7 +16,7 @@ int main() {
 	}else{
 
 		wait(NULL);
-		printf("Child Complete.");
+		printf("Child Complete.\n");
 	}
 	return 0;
 }
