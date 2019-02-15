@@ -40,6 +40,10 @@ void process(int u, int N, int M, int p, int s){
 			}else{
 				// must sleep processes according to s
 				sleep(s);
+				printf("EXITING: Level %d", N);
+				printf(" process with pid= %ld", pid);
+				printf(", child of ppid= %ld\n", ppid);
+
 			}
 		}
 
@@ -69,8 +73,9 @@ void process(int u, int N, int M, int p, int s){
 
 			}
 
+			pid_t newp;
 			for(int i=0; i<M; i++){
-				pid_t newp;
+				//pid_t newp;
 				//printf("Do I even get here??\n");
 				newp = fork();
 				if(newp < 0){
@@ -86,7 +91,23 @@ void process(int u, int N, int M, int p, int s){
 
 //					execlp("/bin/ls", "./prog2tree -M %d -N %d", M, n, NULL);
 				}
-//				process(u, N-1, M, p, s);
+/*				}else{
+					// Parent process must wait() before children finish
+					wait(NULL);
+					printf("EXITING: Level %d", N);
+					printf(" process with pid= %ld", pid);
+					printf(", child of ppid= %ld\n", ppid);
+
+				}
+*/
+			}
+
+			if(newp > 0){
+			
+			wait(NULL);
+			printf("EXITING: Level %d", N);
+			printf(" process with pid= %ld", pid);
+			printf(", child of ppid= %ld\n", ppid);
 
 			}
 		}
