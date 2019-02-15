@@ -71,7 +71,8 @@ void process(int u, int N, int M, int p, int s){
 				}
 				if(newp > 0){
 					// if newp != parent process
-					execlp("/bin/ls", output, NULL);
+					execlp("./prog2tree", output, NULL);
+
 					
 					
 
