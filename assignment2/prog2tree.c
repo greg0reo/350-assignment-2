@@ -47,9 +47,23 @@ void process(int u, int N, int M, int p, int s){
 
 			//for each M, one process will be created
 			int n = N-1;
+			int length;
+			if(p == 0){
+				length = 24; //I manually counted how many chars it is
+			}else{
+				length = 27; //s can be double digit this way
+			}
+
+			char output[length];
+			if(p == 0){
+				sprintf(output, "./prog2tree -N %d -M %d -p", n, M);
+			}else{
+				sprintf(output, "./prog2tree -N %d -M %d -s %d", n, M, s);
+			}
+
 			for(int i=0; i<M; i++){
 				pid_t newp;
-				printf("Do I even get here??\n");
+				//printf("Do I even get here??\n");
 				newp = fork();
 				if(newp < 0){
 					// make sure fork successful
@@ -57,7 +71,11 @@ void process(int u, int N, int M, int p, int s){
 				}
 				if(newp > 0){
 					// if newp != parent process
-					execlp("/bin/ls", "./prog2tree -M %d -N %d", M, n, NULL);
+					execlp("/bin/ls", output, NULL);
+					
+					
+
+//					execlp("/bin/ls", "./prog2tree -M %d -N %d", M, n, NULL);
 				}
 //				process(u, N-1, M, p, s);
 
