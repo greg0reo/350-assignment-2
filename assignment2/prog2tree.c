@@ -22,7 +22,7 @@ void process(int u, int N, int M, int p, int s){
 		pid_t ppid;
 		pid = getpid();
 		ppid = getppid();
-		printf("ALIVE: Level %d", N);
+		printf("\nALIVE: Level %d", N);
 		printf(" process with pid= %ld", pid);
 		printf(", child of ppid= %ld\n", ppid);
 
@@ -32,11 +32,14 @@ void process(int u, int N, int M, int p, int s){
 			// This is the base case of the function, where no additional processes are made
 			//function must pause or sleep child processes
 
+			//execlp("ps", "ps", NULL);
+
 			if(p == 0){
 				// must pause processes
-
+				pause();
 			}else{
 				// must sleep processes according to s
+				sleep(s);
 			}
 		}
 
@@ -47,6 +50,7 @@ void process(int u, int N, int M, int p, int s){
 
 			//for each M, one process will be created
 			int n = N-1;
+
 			int length;
 			if(p == 0){
 				length = 24; //I manually counted how many chars it is
@@ -58,7 +62,11 @@ void process(int u, int N, int M, int p, int s){
 			if(p == 0){
 				sprintf(output, "./prog2tree -N %d -M %d -p", n, M);
 			}else{
-				sprintf(output, "./prog2tree -N %d -M %d -s %d", n, M, s);
+				sprintf(output, "./prog2tree -N %d -M %d -s %d", N-1, M, s);
+				//printf("%d\n", n);
+				//printf(output);
+				printf("\n");
+
 			}
 
 			for(int i=0; i<M; i++){
@@ -69,11 +77,11 @@ void process(int u, int N, int M, int p, int s){
 					// make sure fork successful
 					fprintf(stderr, "Fork failed.\n");
 				}
-				if(newp > 0){
-					// if newp != parent process
+				if(newp == 0){
+					// if newp == 0, child process
+					printf(output);
+					printf("\n");
 					execlp("./prog2tree", output, NULL);
-
-					
 					
 
 //					execlp("/bin/ls", "./prog2tree -M %d -N %d", M, n, NULL);
