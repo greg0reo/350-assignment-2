@@ -10,6 +10,13 @@
 
  */
 
+//int ui = 1;
+//int Ni = 4;
+//int Mi = 3;
+//int pi = 1;
+//int si = 1;
+
+
 void process(int u, int N, int M, int p, int s){
 	if(u == 0){
 		printf("USAGE: \n");
@@ -74,17 +81,19 @@ void process(int u, int N, int M, int p, int s){
 
 			}
 */
-			char en[4];
-			char em[4];
+			//
+			char en[5];
+			char em[5];
 			char bonus[length];
-			sprintf(en, "-N %d", n);
-			sprintf(em, "-M %d", M);
+			sprintf(en, "%d", n);
+			sprintf(em, "%d", M);
 			if(p == 0){
 				sprintf(bonus, "-p");
 			}else{
-				sprintf(bonus, "-s %d", s);
+				sprintf(bonus, "-s" );
 			}
 
+			char * bruh[] = {"./prog2tree", "-N",  en, "-M", em, bonus, NULL};
 			pid_t newp;
 			for(int i=0; i<M; i++){
 				//pid_t newp;
@@ -99,7 +108,8 @@ void process(int u, int N, int M, int p, int s){
 					//printf(output);
 					//printf("\n");
 					//execlp("./prog2tree", output, NULL);
-					execlp("./prog2tree", "./prog2tree", en, em, bonus, NULL);
+					//execlp("./prog2tree", "./prog2tree", en, em, bonus, NULL);
+					execvp(bruh[0], bruh);
 
 //					execlp("/bin/ls", "./prog2tree -M %d -N %d", M, n, NULL);
 				}
@@ -159,7 +169,7 @@ int main(int argc, char *argv[]){
 			p = 0;
 			break;
 		case 's':
-			s = 0;
+			sChecker = 0;
 			s=atoi(optarg);
 			break;
 		}
